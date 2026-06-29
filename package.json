@@ -1,0 +1,9 @@
+{
+  "name": "sturdy-spork",
+  "version": "1.0.0",
+  "description": "Static HTML page deployed on Cloudflare Pages",
+  "scripts": {
+    "build": "mkdir -p dist && cp -r *.html dist/"
+  },
+  "license": "MIT"
+}
