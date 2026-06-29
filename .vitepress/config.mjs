@@ -1,21 +1,25 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: '我的博客',
-  description: '一个基于 VitePress 的静态博客与文档站点',
+  title: 'Python 训练项目中心',
+  description: '系统化的 Python 学习项目与实战练习平台',
   lang: 'zh-CN',
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
-      { text: '文章', link: '/posts/' },
+      { text: '项目', link: '/projects/' },
       { text: '关于', link: '/about' }
     ],
     sidebar: {
-      '/posts/': [
+      '/projects/': [
         {
-          text: '文章列表',
+          text: '项目分类',
           items: [
-            { text: 'Hello World', link: '/posts/hello' }
+            { text: '基础语法', link: '/projects/basics/' },
+            { text: '数据分析', link: '/projects/data-analysis/' },
+            { text: 'Web 开发', link: '/projects/web/' },
+            { text: '自动化脚本', link: '/projects/automation/' },
+            { text: '机器学习', link: '/projects/ml/' }
           ]
         }
       ]
@@ -24,7 +28,7 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/junjun-he1/sturdy-spork' }
     ],
     footer: {
-      message: '基于 VitePress 构建',
+      message: 'Python 训练项目中心',
       copyright: 'Copyright © 2026'
     }
   }
