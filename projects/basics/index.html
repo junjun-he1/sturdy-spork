@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>基础语法项目 - Python 训练项目中心</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="nav-brand">Python 训练项目中心</a>
+      <ul class="nav-links">
+        <li><a href="/">首页</a></li>
+        <li><a href="/projects/" class="active">项目</a></li>
+        <li><a href="/about.html">关于</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>基础语法项目</h1>
+      <p>适合零基础或刚入门 Python 的学习者</p>
+    </div>
+
+    <div class="content">
+      <h2>1. 猜数字游戏</h2>
+      <p><strong>目标</strong>：巩固随机数、条件判断和循环</p>
+      <pre><code>import random
+
+def guess_number():
+    number = random.randint(1, 100)
+    attempts = 0
+    
+    while True:
+        guess = int(input("猜一个 1-100 的数字: "))
+        attempts += 1
+        
+        if guess &lt; number:
+            print("太小了！")
+        elif guess &gt; number:
+            print("太大了！")
+        else:
+            print(f"恭喜！你用了 {attempts} 次猜对了！")
+            break
+
+guess_number()</code></pre>
+      <p><strong>知识点</strong>：<code>random</code> 模块、<code>while</code> 循环、<code>if-elif-else</code></p>
+
+      <hr>
+
+      <h2>2. 待办事项列表</h2>
+      <p><strong>目标</strong>：练习列表操作和函数封装</p>
+      <pre><code>todos = []
+
+def add_todo(task):
+    todos.append({"task": task, "done": False})
+    print(f"已添加: {task}")
+
+def list_todos():
+    for i, todo in enumerate(todos, 1):
+        status = "✓" if todo["done"] else "○"
+        print(f"{i}. [{status}] {todo['task']}")
+
+def complete_todo(index):
+    if 0 &lt;= index &lt; len(todos):
+        todos[index]["done"] = True
+        print(f"已完成: {todos[index]['task']}")
+
+add_todo("学习 Python")
+add_todo("做练习题")
+list_todos()</code></pre>
+      <p><strong>知识点</strong>：列表、字典、函数、索引操作</p>
+
+      <hr>
+
+      <h2>3. 文件批处理工具</h2>
+      <p><strong>目标</strong>：掌握文件读写和字符串处理</p>
+      <pre><code>import os
+
+def batch_rename(folder, old_ext, new_ext):
+    """批量修改文件扩展名"""
+    for filename in os.listdir(folder):
+        if filename.endswith(old_ext):
+            new_name = filename.replace(old_ext, new_ext)
+            os.rename(
+                os.path.join(folder, filename),
+                os.path.join(folder, new_name)
+            )
+            print(f"重命名: {filename} -&gt; {new_name}")
+
+# batch_rename("./my_files", ".txt", ".md")</code></pre>
+      <p><strong>知识点</strong>：<code>os</code> 模块、文件操作、字符串方法</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Python 训练项目中心 · Copyright © 2026</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据分析项目 - Python 训练项目中心</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="nav-brand">Python 训练项目中心</a>
+      <ul class="nav-links">
+        <li><a href="/">首页</a></li>
+        <li><a href="/projects/" class="active">项目</a></li>
+        <li><a href="/about.html">关于</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>数据分析项目</h1>
+      <p>使用 Pandas、NumPy、Matplotlib 进行数据处理与可视化</p>
+    </div>
+
+    <div class="content">
+      <h2>前置要求</h2>
+      <pre><code>pip install pandas numpy matplotlib</code></pre>
+
+      <h2>1. CSV 数据清洗工具</h2>
+      <p><strong>目标</strong>：清洗销售数据，处理缺失值和异常值</p>
+      <pre><code>import pandas as pd
+
+# 读取数据
+df = pd.read_csv('sales_data.csv')
+
+# 查看数据概况
+print(df.info())
+print(df.describe())
+
+# 清洗步骤
+df = df.drop_duplicates()                      # 去重
+df['price'] = df['price'].fillna(df['price'].median())  # 填充缺失值
+df = df[df['price'] > 0]                       # 过滤异常值
+
+# 保存清洗后的数据
+df.to_csv('sales_data_cleaned.csv', index=False)
+print(f"清洗完成，剩余 {len(df)} 条记录")</code></pre>
+      <p><strong>知识点</strong>：<code>pandas</code> 数据读取、去重、缺失值处理、条件过滤</p>
+
+      <hr>
+
+      <h2>2. 销售数据可视化</h2>
+      <p><strong>目标</strong>：用 Matplotlib 生成销售趋势图表</p>
+      <pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+# 读取数据
+df = pd.read_csv('sales_data_cleaned.csv')
+df['date'] = pd.to_datetime(df['date'])
+
+# 按月汇总
+monthly = df.groupby(df['date'].dt.to_period('M'))['amount'].sum()
+
+# 绘制折线图
+plt.figure(figsize=(10, 6))
+monthly.plot(kind='line', marker='o')
+plt.title('月度销售额趋势')
+plt.xlabel('月份')
+plt.ylabel('销售额')
+plt.grid(True)
+plt.savefig('sales_trend.png')
+plt.show()</code></pre>
+      <p><strong>知识点</strong>：<code>groupby</code> 聚合、<code>to_datetime</code> 转换、<code>matplotlib</code> 绘图</p>
+
+      <hr>
+
+      <h2>3. 数据报表自动生成</h2>
+      <p><strong>目标</strong>：汇总统计并生成 HTML 报表</p>
+      <pre><code>import pandas as pd
+
+def generate_report(data_file, output_file='report.html'):
+    df = pd.read_csv(data_file)
+    
+    summary = {
+        '总记录数': len(df),
+        '平均价格': f"{df['price'].mean():.2f}",
+        '最高价格': f"{df['price'].max():.2f}",
+        '最低价格': f"{df['price'].min():.2f}",
+    }
+    
+    html = f"""
+    &lt;html&gt;
+    &lt;head&gt;&lt;title&gt;数据报表&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;销售数据报表&lt;/h1&gt;
+        &lt;table border="1"&gt;
+            {''.join(f'&lt;tr&gt;&lt;td&gt;{k}&lt;/td&gt;&lt;td&gt;{v}&lt;/td&gt;&lt;/tr&gt;' for k, v in summary.items())}
+        &lt;/table&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+    """
+    
+    with open(output_file, 'w', encoding='utf-8') as f:
+        f.write(html)
+    print(f"报表已生成: {output_file}")
+
+generate_report('sales_data_cleaned.csv')</code></pre>
+      <p><strong>知识点</strong>：数据统计、字符串格式化、HTML 生成</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Python 训练项目中心 · Copyright © 2026</p>
+  </footer>
+</body>
+</html>

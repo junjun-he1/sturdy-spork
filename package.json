@@ -1,13 +1,9 @@
 {
   "name": "sturdy-spork",
   "version": "1.0.0",
-  "description": "Python Training Project Center powered by VitePress",
+  "description": "Python Training Project Center - Static HTML site",
   "scripts": {
-    "build": "vitepress build && rm -rf dist && mv .vitepress/dist dist",
-    "dev": "vitepress dev"
-  },
-  "devDependencies": {
-    "vitepress": "1.3.4"
+    "build": "mkdir -p dist && cp -r index.html about.html style.css projects dist/"
   },
   "license": "MIT"
 }

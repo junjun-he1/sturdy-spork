@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web 开发项目 - Python 训练项目中心</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="nav-brand">Python 训练项目中心</a>
+      <ul class="nav-links">
+        <li><a href="/">首页</a></li>
+        <li><a href="/projects/" class="active">项目</a></li>
+        <li><a href="/about.html">关于</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>Web 开发项目</h1>
+      <p>使用 Flask、FastAPI 等框架开发 Web 应用</p>
+    </div>
+
+    <div class="content">
+      <h2>前置要求</h2>
+      <pre><code>pip install flask fastapi uvicorn</code></pre>
+
+      <h2>1. Flask 个人博客 API</h2>
+      <p><strong>目标</strong>：构建 RESTful API，实现文章的增删改查</p>
+      <pre><code>from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+
+posts = [
+    {"id": 1, "title": "Hello Flask", "content": "这是我的第一篇博客"}
+]
+
+@app.route('/api/posts', methods=['GET'])
+def get_posts():
+    return jsonify(posts)
+
+@app.route('/api/posts', methods=['POST'])
+def create_post():
+    data = request.get_json()
+    new_post = {
+        "id": len(posts) + 1,
+        "title": data['title'],
+        "content": data['content']
+    }
+    posts.append(new_post)
+    return jsonify(new_post), 201
+
+@app.route('/api/posts/&lt;int:post_id&gt;', methods=['DELETE'])
+def delete_post(post_id):
+    global posts
+    posts = [p for p in posts if p['id'] != post_id]
+    return jsonify({"message": "已删除"})
+
+if __name__ == '__main__':
+    app.run(debug=True)</code></pre>
+      <p><strong>知识点</strong>：Flask 路由、HTTP 方法、<code>jsonify</code>、请求处理</p>
+
+      <hr>
+
+      <h2>2. FastAPI 图书管理接口</h2>
+      <p><strong>目标</strong>：使用 FastAPI 构建带自动文档的 API</p>
+      <pre><code>from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI(title="图书管理系统")
+
+class Book(BaseModel):
+    id: int
+    title: str
+    author: str
+    price: float
+
+books = []
+
+@app.get("/books")
+def list_books():
+    return books
+
+@app.post("/books")
+def add_book(book: Book):
+    books.append(book.dict())
+    return {"message": "图书已添加", "book": book}
+
+@app.get("/books/{book_id}")
+def get_book(book_id: int):
+    for book in books:
+        if book['id'] == book_id:
+            return book
+    return {"error": "图书不存在"}
+
+# 启动: uvicorn main:app --reload
+# 文档地址: http://localhost:8000/docs</code></pre>
+      <p><strong>知识点</strong>：FastAPI、Pydantic 模型、自动 API 文档</p>
+
+      <hr>
+
+      <h2>3. 简易 Web 爬虫 + 展示</h2>
+      <p><strong>目标</strong>：抓取网页数据并在 Web 页面展示</p>
+      <pre><code>from flask import Flask, render_template_string
+import requests
+from bs4 import BeautifulSoup
+
+app = Flask(__name__)
+
+HTML_TEMPLATE = """
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;热门新闻&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;今日热门&lt;/h1&gt;
+    &lt;ul&gt;
+    {% for item in news %}
+        &lt;li&gt;&lt;a href="{{ item.link }}"&gt;{{ item.title }}&lt;/a&gt;&lt;/li&gt;
+    {% endfor %}
+    &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"""
+
+@app.route('/')
+def index():
+    news = [
+        {"title": "Python 3.14 发布", "link": "#"},
+        {"title": "AI 编程助手新进展", "link": "#"},
+    ]
+    return render_template_string(HTML_TEMPLATE, news=news)
+
+if __name__ == '__main__':
+    app.run(debug=True)</code></pre>
+      <p><strong>知识点</strong>：<code>requests</code> 请求、<code>BeautifulSoup</code> 解析、模板渲染</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Python 训练项目中心 · Copyright © 2026</p>
+  </footer>
+</body>
+</html>
