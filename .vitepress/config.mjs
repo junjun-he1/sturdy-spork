@@ -4,6 +4,11 @@ export default defineConfig({
   title: 'Python 训练项目中心',
   description: '系统化的 Python 学习项目与实战练习平台',
   lang: 'zh-CN',
+  vite: {
+    build: {
+      outDir: 'dist'
+    }
+  },
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
