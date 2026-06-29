@@ -1,9 +1,9 @@
 {
   "name": "sturdy-spork",
   "version": "1.0.0",
-  "description": "Blog & Docs site powered by VitePress",
+  "description": "Python Training Project Center powered by VitePress",
   "scripts": {
-    "build": "vitepress build",
+    "build": "vitepress build && rm -rf dist && mv .vitepress/dist dist",
     "dev": "vitepress dev"
   },
   "devDependencies": {
