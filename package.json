@@ -1,9 +1,13 @@
 {
   "name": "sturdy-spork",
   "version": "1.0.0",
-  "description": "Static HTML page deployed on Cloudflare Pages",
+  "description": "Blog & Docs site powered by VitePress",
   "scripts": {
-    "build": "mkdir -p dist && cp -r *.html dist/"
+    "build": "vitepress build",
+    "dev": "vitepress dev"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.0"
   },
   "license": "MIT"
 }
