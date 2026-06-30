@@ -267,6 +267,145 @@ while running:
 
 pygame.quit()</code></pre>
       <p><strong>知识点</strong>：精灵管理、键盘连续按键、射击系统、碰撞销毁、计分系统</p>
+
+      <hr>
+
+      <h2>4. 井字棋对战</h2>
+      <p><strong>目标</strong>：实现双人对战的井字棋游戏</p>
+      <pre><code>def print_board(board):
+    for row in board:
+        print(' | '.join(row))
+        print('-' * 9)
+
+def check_winner(board):
+    # 检查行、列、对角线
+    for i in range(3):
+        if board[i][0] == board[i][1] == board[i][2] != ' ':
+            return board[i][0]
+        if board[0][i] == board[1][i] == board[2][i] != ' ':
+            return board[0][i]
+    if board[0][0] == board[1][1] == board[2][2] != ' ':
+        return board[0][0]
+    if board[0][2] == board[1][1] == board[2][0] != ' ':
+        return board[0][2]
+    return None
+
+def tic_tac_toe():
+    board = [[' ']*3 for _ in range(3)]
+    player = 'X'
+
+    for turn in range(9):
+        print_board(board)
+        row, col = map(int, input(f"玩家 {player}，输入行和列(0-2): ").split())
+
+        if board[row][col] == ' ':
+            board[row][col] = player
+        else:
+            print("该位置已占用！")
+            continue
+
+        winner = check_winner(board)
+        if winner:
+            print_board(board)
+            print(f"玩家 {winner} 获胜！")
+            return
+
+        player = 'O' if player == 'X' else 'X'
+
+    print_board(board)
+    print("平局！")
+
+tic_tac_toe()</code></pre>
+      <p><strong>知识点</strong>：二维列表、循环控制、胜负判断逻辑</p>
+
+      <hr>
+
+      <h2>5. 2048 游戏（文字版）</h2>
+      <p><strong>目标</strong>：实现 2048 核心逻辑</p>
+      <pre><code>import random
+
+def new_board():
+    board = [[0]*4 for _ in range(4)]
+    add_random(board)
+    add_random(board)
+    return board
+
+def add_random(board):
+    empty = [(r, c) for r in range(4) for c in range(4) if board[r][c] == 0]
+    if empty:
+        r, c = random.choice(empty)
+        board[r][c] = 4 if random.random() &lt; 0.1 else 2
+
+def slide_left(board):
+    new_board = []
+    for row in board:
+        nums = [n for n in row if n != 0]
+        merged = []
+        i = 0
+        while i &lt; len(nums):
+            if i + 1 &lt; len(nums) and nums[i] == nums[i+1]:
+                merged.append(nums[i] * 2)
+                i += 2
+            else:
+                merged.append(nums[i])
+                i += 1
+        merged += [0] * (4 - len(merged))
+        new_board.append(merged)
+    return new_board
+
+def print_board(board):
+    for row in board:
+        print(f"|{row[0]:&gt;5}|{row[1]:&gt;5}|{row[2]:&gt;5}|{row[3]:&gt;5}|")
+    print('-' * 22)
+
+# 简化版：只实现左移
+board = new_board()
+print_board(board)
+board = slide_left(board)
+print("左移后:")
+print_board(board)</code></pre>
+      <p><strong>知识点</strong>：二维数组操作、滑动合并逻辑、随机生成</p>
+
+      <hr>
+
+      <h2>6. 猜单词游戏</h2>
+      <p><strong>目标</strong>：实现类似 Hangman 的猜单词游戏</p>
+      <pre><code>import random
+
+WORD_LIST = ['python', 'programming', 'algorithm', 'function', 'variable',
+             'database', 'network', 'security', 'interface', 'framework']
+
+def hangman():
+    word = random.choice(WORD_LIST)
+    guessed = set()
+    attempts = 6
+
+    while attempts &gt; 0:
+        display = ''.join(c if c in guessed else '_' for c in word)
+        print(f"\n单词: {display}")
+        print(f"剩余次数: {'❤' * attempts}{'♡' * (6 - attempts)}")
+        print(f"已猜字母: {', '.join(sorted(guessed)) if guessed else '无'}")
+
+        if all(c in guessed for c in word):
+            print(f"\n恭喜！你猜对了: {word}")
+            return
+
+        guess = input("猜一个字母: ").lower()
+        if guess in guessed:
+            print("已经猜过这个字母了！")
+            continue
+
+        guessed.add(guess)
+        if guess not in word:
+            attempts -= 1
+            print(f"'{guess}' 不在单词中！")
+        else:
+            print(f"'{guess}' 猜对了！")
+
+    print(f"\n游戏结束！正确答案: {word}")
+
+hangman()</code></pre>
+      <p><strong>知识点</strong>：集合操作、字符串处理、游戏状态管理</p>
     </div>
   </main>
 

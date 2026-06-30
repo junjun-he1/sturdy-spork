@@ -137,6 +137,139 @@ def index():
 if __name__ == '__main__':
     app.run(debug=True)</code></pre>
       <p><strong>知识点</strong>：<code>requests</code> 请求、<code>BeautifulSoup</code> 解析、模板渲染</p>
+
+      <hr>
+
+      <h2>4. Flask 用户登录系统</h2>
+      <p><strong>目标</strong>：实现 session 认证和登录功能</p>
+      <pre><code>from flask import Flask, request, redirect, url_for, session, render_template_string
+
+app = Flask(__name__)
+app.secret_key = 'your-secret-key'
+
+users_db = {'admin': 'password123', 'user1': 'abc456'}
+
+LOGIN_HTML = """
+{% if session.get('user') %}
+&amp;lt;h2&amp;gt;欢迎, {{ session['user'] }}!&amp;lt;/h2&amp;gt;
+&amp;lt;a href="/logout"&amp;gt;退出登录&amp;lt;/a&amp;gt;
+{% else %}
+&amp;lt;form method="POST"&amp;gt;
+    &amp;lt;input name="username" placeholder="用户名" required&amp;gt;
+    &amp;lt;input name="password" type="password" placeholder="密码" required&amp;gt;
+    &amp;lt;button type="submit"&amp;gt;登录&amp;lt;/button&amp;gt;
+{% endif %}
+"""
+
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if users_db.get(username) == password:
+            session['user'] = username
+    return render_template_string(LOGIN_HTML)
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
+
+if __name__ == '__main__':
+    app.run(debug=True)</code></pre>
+      <p><strong>知识点</strong>：<code>session</code> 管理、表单处理、重定向、模板条件渲染</p>
+
+      <hr>
+
+      <h2>5. FastAPI 文件上传接口</h2>
+      <p><strong>目标</strong>：构建文件上传和处理 API</p>
+      <pre><code>from fastapi import FastAPI, UploadFile, File
+import shutil
+
+app = FastAPI(title="文件上传服务")
+
+@app.post("/upload")
+async def upload_file(file: UploadFile = File(...)):
+    with open(f"uploads/{file.filename}", "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    return {
+        "filename": file.filename,
+        "content_type": file.content_type,
+        "message": "上传成功"
+    }
+
+@app.post("/upload/multiple")
+async def upload_multiple(files: list[UploadFile] = File(...)):
+    results = []
+    for file in files:
+        with open(f"uploads/{file.filename}", "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        results.append({"filename": file.filename, "status": "ok"})
+    return {"uploaded": results}
+
+# 启动: uvicorn main:app --reload</code></pre>
+      <p><strong>知识点</strong>：文件上传、<code>UploadFile</code>、异步处理、<code>shutil</code></p>
+
+      <hr>
+
+      <h2>6. Flask RESTful Todo API（完整版）</h2>
+      <p><strong>目标</strong>：实现完整的 CRUD + 过滤和分页</p>
+      <pre><code>from flask import Flask, jsonify, request
+from datetime import datetime
+
+app = Flask(__name__)
+
+todos = [
+    {"id": 1, "title": "学 Python", "done": False, "created": "2026-01-01"},
+    {"id": 2, "title": "做练习", "done": True, "created": "2026-01-02"},
+]
+next_id = 3
+
+@app.route('/api/todos', methods=['GET'])
+def get_todos():
+    done = request.args.get('done')
+    page = int(request.args.get('page', 1))
+    per_page = int(request.args.get('per_page', 10))
+    
+    result = todos
+    if done is not None:
+        result = [t for t in result if t['done'] == (done == 'true')]
+    
+    start = (page - 1) * per_page
+    end = start + per_page
+    return jsonify({
+        "data": result[start:end],
+        "total": len(result),
+        "page": page
+    })
+
+@app.route('/api/todos', methods=['POST'])
+def create_todo():
+    global next_id
+    data = request.get_json()
+    todo = {
+        "id": next_id,
+        "title": data['title'],
+        "done": False,
+        "created": datetime.now().strftime('%Y-%m-%d')
+    }
+    todos.append(todo)
+    next_id += 1
+    return jsonify(todo), 201
+
+@app.route('/api/todos/&lt;int:todo_id&gt;', methods=['PUT'])
+def update_todo(todo_id):
+    data = request.get_json()
+    for todo in todos:
+        if todo['id'] == todo_id:
+            todo['done'] = data.get('done', todo['done'])
+            todo['title'] = data.get('title', todo['title'])
+            return jsonify(todo)
+    return jsonify({"error": "未找到"}), 404
+
+if __name__ == '__main__':
+    app.run(debug=True)</code></pre>
+      <p><strong>知识点</strong>：CRUD、查询参数过滤、分页、HTTP 状态码</p>
     </div>
   </main>
 

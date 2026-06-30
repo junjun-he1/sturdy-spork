@@ -93,6 +93,81 @@ def batch_rename(folder, old_ext, new_ext):
 
 # batch_rename("./my_files", ".txt", ".md")</code></pre>
       <p><strong>知识点</strong>：<code>os</code> 模块、文件操作、字符串方法</p>
+
+      <hr>
+
+      <h2>4. 石头剪刀布游戏</h2>
+      <p><strong>目标</strong>：练习随机选择和条件判断</p>
+      <pre><code>import random
+
+def rock_paper_scissors():
+    choices = ['石头', '剪刀', '布']
+    computer = random.choice(choices)
+    player = input("请输入（石头/剪刀/布）: ")
+    
+    if player == computer:
+        print(f"平局！你们都出了{computer}")
+    elif (player == '石头' and computer == '剪刀') or \
+         (player == '剪刀' and computer == '布') or \
+         (player == '布' and computer == '石头'):
+        print(f"你赢了！你出了{player}，电脑出了{computer}")
+    else:
+        print(f"你输了！你出了{player}，电脑出了{computer}")
+
+rock_paper_scissors()</code></pre>
+      <p><strong>知识点</strong>：<code>random.choice</code>、多条件判断、逻辑运算符</p>
+
+      <hr>
+
+      <h2>5. 学生成绩管理</h2>
+      <p><strong>目标</strong>：练习字典操作和数据排序</p>
+      <pre><code>students = {
+    '小明': {'math': 90, 'english': 85, 'python': 95},
+    '小红': {'math': 78, 'english': 92, 'python': 88},
+    '小刚': {'math': 85, 'english': 76, 'python': 90},
+}
+
+def get_average(student):
+    scores = student.values()
+    return sum(scores) / len(scores)
+
+def rank_students(students):
+    ranked = sorted(
+        students.items(),
+        key=lambda x: get_average(x[1]),
+        reverse=True
+    )
+    for rank, (name, scores) in enumerate(ranked, 1):
+        avg = get_average(scores)
+        print(f"第{rank}名: {name} 平均分 {avg:.1f}")
+
+rank_students(students)</code></pre>
+      <p><strong>知识点</strong>：嵌套字典、<code>sorted</code> 排序、<code>lambda</code> 函数</p>
+
+      <hr>
+
+      <h2>6. 简易计算器</h2>
+      <p><strong>目标</strong>：练习函数定义和异常处理</p>
+      <pre><code>def calculate(a, b, operator):
+    try:
+        if operator == '+':
+            return a + b
+        elif operator == '-':
+            return a - b
+        elif operator == '*':
+            return a * b
+        elif operator == '/':
+            return a / b
+        else:
+            return "不支持的运算符"
+    except ZeroDivisionError:
+        return "错误：除数不能为零"
+
+# 测试
+print(calculate(10, 3, '+'))   # 13
+print(calculate(10, 3, '/'))   # 3.333...
+print(calculate(10, 0, '/'))   # 错误提示</code></pre>
+      <p><strong>知识点</strong>：<code>try-except</code>、<code>ZeroDivisionError</code>、多分支判断</p>
     </div>
   </main>
 

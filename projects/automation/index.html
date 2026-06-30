@@ -109,6 +109,83 @@ def batch_send(sender, password, recipients, template):
 # template = "尊敬的 {name}，您好！请查收本月活动安排。"
 # batch_send("your_email@qq.com", "your_password", recipients, template)</code></pre>
       <p><strong>知识点</strong>：<code>smtplib</code> 邮件发送、<code>MIMEText</code> 邮件格式、批量处理</p>
+
+      <hr>
+
+      <h2>4. PDF 文件批量合并</h2>
+      <p><strong>目标</strong>：使用 PyPDF2 合并多个 PDF 文件</p>
+      <pre><code>from PyPDF2 import PdfMerger
+import glob
+
+def merge_pdfs(pattern, output='merged.pdf'):
+    merger = PdfMerger()
+    files = sorted(glob.glob(pattern))
+    
+    for file in files:
+        merger.append(file)
+        print(f"已添加: {file}")
+    
+    merger.write(output)
+    merger.close()
+    print(f"\n合并完成！共 {len(files)} 个文件 → {output}")
+
+# 使用示例
+# merge_pdfs('chapter_*.pdf', '完整文档.pdf')</code></pre>
+      <p><strong>知识点</strong>：<code>PyPDF2</code>、PDF 合并、glob 排序</p>
+
+      <hr>
+
+      <h2>5. 网站状态监控脚本</h2>
+      <p><strong>目标</strong>：定时检测网站可用性并记录日志</p>
+      <pre><code>import requests
+import time
+from datetime import datetime
+
+urls = [
+    'https://www.baidu.com',
+    'https://www.github.com',
+]
+
+def monitor(urls, interval=60):
+    print(f"开始监控 {len(urls)} 个网站...")
+    while True:
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        for url in urls:
+            try:
+                start = time.time()
+                resp = requests.get(url, timeout=10)
+                elapsed = (time.time() - start) * 1000
+                status = f"✓ {resp.status_code} ({elapsed:.0f}ms)"
+            except Exception as e:
+                status = f"✗ {e}"
+            print(f"[{timestamp}] {url} {status}")
+        print("-" * 50)
+        time.sleep(interval)
+
+# monitor(urls, interval=300)</code></pre>
+      <p><strong>知识点</strong>：<code>requests</code> 超时、time 计时、日志记录、循环监控</p>
+
+      <hr>
+
+      <h2>6. 自动备份文件夹</h2>
+      <p><strong>目标</strong>：按日期自动备份指定文件夹</p>
+      <pre><code>import shutil
+import os
+from datetime import datetime
+
+def backup_folder(source, backup_dir='backups'):
+    os.makedirs(backup_dir, exist_ok=True)
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    backup_name = f"backup_{timestamp}"
+    backup_path = os.path.join(backup_dir, backup_name)
+    
+    shutil.make_archive(backup_path, 'zip', source)
+    size = os.path.getsize(backup_path + '.zip') / 1024 / 1024
+    print(f"备份完成: {backup_path}.zip ({size:.2f} MB)")
+    return backup_path + '.zip'
+
+# backup_folder('./my_project')</code></pre>
+      <p><strong>知识点</strong>：<code>shutil.make_archive</code>、zip 压缩、时间戳命名</p>
     </div>
   </main>
 

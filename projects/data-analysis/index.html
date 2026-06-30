@@ -109,6 +109,102 @@ def generate_report(data_file, output_file='report.html'):
 
 generate_report('sales_data_cleaned.csv')</code></pre>
       <p><strong>知识点</strong>：数据统计、字符串格式化、HTML 生成</p>
+
+      <hr>
+
+      <h2>4. 股票数据走势分析</h2>
+      <p><strong>目标</strong>：使用 Matplotlib 绘制 K 线简化图</p>
+      <pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 模拟 30 天股票数据
+np.random.seed(42)
+dates = pd.date_range('2026-01-01', periods=30)
+prices = 100 + np.cumsum(np.random.randn(30) * 2)
+volume = np.random.randint(1000, 5000, 30)
+
+df = pd.DataFrame({'date': dates, 'price': prices, 'volume': volume})
+
+# 双轴图表
+fig, ax1 = plt.subplots(figsize=(12, 6))
+color = '#7ec8e3'
+ax1.set_xlabel('日期')
+ax1.set_ylabel('价格', color=color)
+ax1.plot(df['date'], df['price'], color=color, linewidth=2)
+ax1.tick_params(axis='y', labelcolor=color)
+
+ax2 = ax1.twinx()
+ax2.bar(df['date'], df['volume'], alpha=0.3, color='#98d8c8')
+ax2.set_ylabel('成交量')
+plt.title('股票价格与成交量')
+plt.tight_layout()
+plt.savefig('stock_analysis.png')
+plt.show()</code></pre>
+      <p><strong>知识点</strong>：双轴图表、<code>twinx</code>、随机数据模拟、<code>cumsum</code></p>
+
+      <hr>
+
+      <h2>5. 数据透视表分析</h2>
+      <p><strong>目标</strong>：使用 Pandas pivot_table 分析销售数据</p>
+      <pre><code>import pandas as pd
+
+# 创建示例数据
+data = {
+    '日期': ['1月','1月','1月','2月','2月','2月','3月','3月','3月'],
+    '产品': ['A','B','C','A','B','C','A','B','C'],
+    '区域': ['东','东','西','西','东','西','东','西','东'],
+    '销量': [100, 150, 200, 120, 180, 160, 140, 170, 190]
+}
+df = pd.DataFrame(data)
+
+# 数据透视表
+pivot = df.pivot_table(
+    values='销量',
+    index='产品',
+    columns='月份',
+    aggfunc='sum',
+    fill_value=0
+)
+print("按产品和月份汇总:")
+print(pivot)
+
+# 交叉表
+cross = pd.crosstab(df['产品'], df['区域'], values=df['销量'], aggfunc='sum')
+print("\n按产品和区域汇总:")
+print(cross)</code></pre>
+      <p><strong>知识点</strong>：<code>pivot_table</code>、<code>crosstab</code>、数据重塑</p>
+
+      <hr>
+
+      <h2>6. 用户行为漏斗分析</h2>
+      <p><strong>目标</strong>：分析用户转化漏斗</p>
+      <pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+# 漏斗数据
+stages = ['访问', '注册', '加购', '下单', '付款']
+users = [10000, 6000, 3000, 1500, 1200]
+
+df = pd.DataFrame({'阶段': stages, '用户数': users})
+df['转化率'] = df['用户数'] / df['用户数'].shift(1)
+df['总转化率'] = df['用户数'] / df['用户数'].iloc[0]
+
+# 水平柱状图
+fig, ax = plt.subplots(figsize=(10, 6))
+colors = ['#7ec8e3', '#98d8c8', '#f6d186', '#d5a6bd', '#ffb7b2']
+bars = ax.barh(df['阶段'][::-1], df['用户数'][::-1], color=colors[::-1])
+
+for bar, val in zip(bars, df['用户数'][::-1]):
+    ax.text(bar.get_width() + 100, bar.get_y() + bar.get_height()/2,
+            f'{val}', va='center', fontsize=12)
+
+plt.title('用户转化漏斗')
+plt.xlabel('用户数')
+plt.tight_layout()
+plt.savefig('funnel.png')
+plt.show()</code></pre>
+      <p><strong>知识点</strong>：漏斗分析、水平柱状图、数据标签</p>
     </div>
   </main>
 
