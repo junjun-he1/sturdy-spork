@@ -109,33 +109,41 @@ main {
 /* ===== Hero 区域 ===== */
 .hero {
   text-align: center;
-  padding: 4rem 2rem;
-  background: var(--hero-gradient);
-  background-size: 200% 200%;
-  animation: heroGradient 6s ease infinite;
-  color: white;
+  padding: 0;
   border-radius: var(--radius);
   margin-bottom: 3rem;
   box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+  overflow: hidden;
+  position: relative;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hero-gradient);
+  background-size: cover;
+  background-position: center;
 }
 
-@keyframes heroGradient {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.hero-overlay {
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.75) 0%, rgba(84, 160, 255, 0.55) 50%, rgba(255, 107, 107, 0.55) 100%);
+  backdrop-filter: blur(2px);
+  padding: 4rem 2rem;
+  width: 100%;
 }
 
-.hero h1 {
+.hero-overlay h1 {
   font-size: 3rem;
   margin-bottom: 0.75rem;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-.hero p {
+.hero-overlay p {
   font-size: 1.25rem;
   opacity: 0.95;
   margin-bottom: 2rem;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* ===== 按钮 ===== */
@@ -202,6 +210,35 @@ main {
   height: 4px;
   background: var(--card-accent, var(--border));
   border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.card-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  transition: var(--transition);
+}
+
+.card:hover .card-img {
+  transform: scale(1.03);
+  filter: brightness(1.05);
+}
+
+.card-github {
+  --card-accent: #6c5ce7;
+  background: linear-gradient(135deg, #f0edff 0%, #ffffff 100%);
+  border-color: rgba(108, 92, 231, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.card-github:hover {
+  border-color: #6c5ce7;
+  box-shadow: 0 12px 32px rgba(108, 92, 231, 0.25);
 }
 
 .card:hover {
@@ -332,6 +369,15 @@ main {
 
 .page-header p {
   color: var(--text-light);
+}
+
+.page-header-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
 }
 
 /* ===== 内容区 ===== */
