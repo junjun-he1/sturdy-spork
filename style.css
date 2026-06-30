@@ -738,3 +738,318 @@ footer a:hover {
   .section-title { font-size: 1.35rem; }
   .page-header h1 { font-size: 1.5rem; }
 }
+
+/* ===== 登录/注册页面 ===== */
+.auth-page {
+  max-width: 480px;
+  margin: 2rem auto;
+}
+
+.auth-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.auth-card h1 {
+  text-align: center;
+  font-size: 1.75rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.auth-card .subtitle {
+  text-align: center;
+  color: var(--text-light);
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.auth-tabs {
+  display: flex;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 0.75rem;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-light);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: var(--transition);
+}
+
+.auth-tab:hover {
+  color: var(--nav-brand-color);
+}
+
+.auth-tab.active {
+  color: var(--nav-brand-color);
+  border-bottom-color: var(--nav-brand-color);
+}
+
+.auth-form {
+  display: none;
+}
+
+.auth-form.active {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--bg);
+  transition: var(--transition);
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: var(--nav-brand-color);
+  box-shadow: 0 0 0 3px rgba(45, 156, 219, 0.15);
+}
+
+.form-group input::placeholder {
+  color: #bdc3c7;
+}
+
+.btn-auth {
+  width: 100%;
+  padding: 0.85rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  background: var(--nav-brand-color);
+  color: white;
+}
+
+.btn-auth:hover {
+  background: #2489c0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(45, 156, 219, 0.3);
+}
+
+.auth-msg {
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  display: none;
+}
+
+.auth-msg.success {
+  display: block;
+  background: #e8f8f4;
+  color: #1a7a5a;
+  border: 1px solid #98d8c8;
+}
+
+.auth-msg.error {
+  display: block;
+  background: #fde8e8;
+  color: #b91c1c;
+  border: 1px solid #ffb7b2;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.auth-footer a {
+  color: var(--nav-brand-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ===== 用户中心页面 ===== */
+.profile-header {
+  text-align: center;
+  padding: 2.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-basics), var(--color-data-analysis));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 2rem;
+  color: white;
+  box-shadow: 0 4px 12px rgba(126, 200, 227, 0.3);
+}
+
+.profile-header h1 {
+  font-size: 1.5rem;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.profile-header .join-date {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.stat-card .stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--nav-brand-color);
+}
+
+.stat-card .stat-label {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 0.25rem;
+}
+
+.btn-logout {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  background: #fde8e8;
+  color: #b91c1c;
+  border: 1px solid #ffb7b2;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.btn-logout:hover {
+  background: #fcd5d5;
+  transform: translateY(-1px);
+}
+
+/* ===== 导航栏用户状态 ===== */
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nav-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-basics), var(--color-data-analysis));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: white;
+}
+
+.nav-username {
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* ===== 进度条 ===== */
+.progress-list {
+  list-style: none;
+  padding: 0;
+}
+
+.progress-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.progress-item:last-child {
+  border-bottom: none;
+}
+
+.progress-icon {
+  font-size: 1.5rem;
+}
+
+.progress-info {
+  flex: 1;
+}
+
+.progress-info .name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--bg);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.progress-percent {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-light);
+  min-width: 40px;
+  text-align: right;
+}

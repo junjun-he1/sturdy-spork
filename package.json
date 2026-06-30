@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Python Training Project Center - Static HTML site",
   "scripts": {
-    "build": "mkdir -p dist && cp -r index.html about.html style.css images projects exercises dist/"
+    "build": "mkdir -p dist && cp -r index.html about.html login.html profile.html auth.js style.css images projects exercises dist/"
   },
   "license": "MIT"
 }

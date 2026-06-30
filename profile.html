@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用户中心 - Python 训练项目中心</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="nav-brand">Python 训练项目中心</a>
+      <ul class="nav-links">
+        <li><a href="/">首页</a></li>
+        <li><a href="/projects/">项目</a></li>
+        <li><a href="/exercises/">练习题</a></li>
+        <li><a href="/about.html">关于</a></li>
+        <li id="navUserItem"></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="profile-header">
+      <div class="profile-avatar" id="profileAvatar"></div>
+      <h1 id="profileUsername"></h1>
+      <p class="join-date" id="profileJoinDate"></p>
+      <div style="margin-top: 1.5rem;">
+        <a href="javascript:void(0)" class="btn-logout" id="logoutBtn">退出登录</a>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">0</div>
+        <div class="stat-label">已学项目</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">0</div>
+        <div class="stat-label">练习完成</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">1</div>
+        <div class="stat-label">学习天数</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <h2>学习进度</h2>
+      <ul class="progress-list">
+        <li class="progress-item">
+          <span class="progress-icon">&#x1F4D6;</span>
+          <div class="progress-info">
+            <div class="name">基础语法</div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%; background: var(--color-basics);"></div>
+            </div>
+          </div>
+          <span class="progress-percent">0%</span>
+        </li>
+        <li class="progress-item">
+          <span class="progress-icon">&#x1F4CA;</span>
+          <div class="progress-info">
+            <div class="name">数据分析</div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%; background: var(--color-data-analysis);"></div>
+            </div>
+          </div>
+          <span class="progress-percent">0%</span>
+        </li>
+        <li class="progress-item">
+          <span class="progress-icon">&#x1F310;</span>
+          <div class="progress-info">
+            <div class="name">Web 开发</div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%; background: var(--color-web);"></div>
+            </div>
+          </div>
+          <span class="progress-percent">0%</span>
+        </li>
+        <li class="progress-item">
+          <span class="progress-icon">&#x2699;&#xFE0F;</span>
+          <div class="progress-info">
+            <div class="name">自动化脚本</div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%; background: var(--color-automation);"></div>
+            </div>
+          </div>
+          <span class="progress-percent">0%</span>
+        </li>
+        <li class="progress-item">
+          <span class="progress-icon">&#x1F916;</span>
+          <div class="progress-info">
+            <div class="name">机器学习</div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%; background: var(--color-ml);"></div>
+            </div>
+          </div>
+          <span class="progress-percent">0%</span>
+        </li>
+        <li class="progress-item">
+          <span class="progress-icon">&#x1F9E9;</span>
+          <div class="progress-info">
+            <div class="name">算法练习</div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%; background: var(--color-algorithms);"></div>
+            </div>
+          </div>
+          <span class="progress-percent">0%</span>
+        </li>
+        <li class="progress-item">
+          <span class="progress-icon">&#x1F3AE;</span>
+          <div class="progress-info">
+            <div class="name">游戏开发</div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%; background: var(--color-games);"></div>
+            </div>
+          </div>
+          <span class="progress-percent">0%</span>
+        </li>
+      </ul>
+    </div>
+  </main>
+
+  <footer>
+    <p>Python 训练项目中心 · Copyright &copy; 2026</p>
+  </footer>
+
+  <script>
+    // 检查登录状态
+    var loggedUser = localStorage.getItem('python_center_logged_in');
+    if (!loggedUser) {
+      window.location.href = '/login.html';
+    } else {
+      // 设置用户信息
+      document.getElementById('profileAvatar').textContent = loggedUser.charAt(0).toUpperCase();
+      document.getElementById('profileUsername').textContent = loggedUser;
+
+      // 查找用户注册日期
+      var users = JSON.parse(localStorage.getItem('python_center_users') || '[]');
+      var user = users.find(function(u) { return u.username === loggedUser; });
+      if (user && user.joinDate) {
+        var date = new Date(user.joinDate);
+        document.getElementById('profileJoinDate').textContent = '加入于 ' + date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+      } else {
+        document.getElementById('profileJoinDate').textContent = '今天加入';
+      }
+
+      // 导航栏用户信息
+      document.getElementById('navUserItem').innerHTML =
+        '<a href="/profile.html" class="nav-user">' +
+          '<span class="nav-avatar">' + loggedUser.charAt(0).toUpperCase() + '</span>' +
+          '<span class="nav-username">' + loggedUser + '</span>' +
+        '</a>';
+    }
+
+    // 退出登录
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+      localStorage.removeItem('python_center_logged_in');
+      window.location.href = '/login.html';
+    });
+  </script>
+</body>
+</html>
