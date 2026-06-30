@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 8 题 · 文件词频统计 - Python 训练项目中心</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="nav-brand">Python 训练项目中心</a>
+      <ul class="nav-links">
+        <li><a href="/">首页</a></li>
+        <li><a href="/projects/">项目</a></li>
+        <li><a href="/exercises/" class="active">练习题</a></li>
+        <li><a href="/about.html">关于</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>第 8 题 · 文件词频统计</h1>
+    </div>
+
+    <div class="content">
+      <div class="exercise-meta">
+        <span class="exercise-number">#08</span>
+        <span class="badge badge-medium">中等</span>
+      </div>
+
+      <h2>题目描述</h2>
+      <div class="exercise-desc-block">
+        <p>读取一个文本文件，统计其中每个单词出现的频率（忽略大小写和标点），按频率从高到低输出前 N 个单词。</p>
+      </div>
+
+      <h2>示例</h2>
+      <div class="example-block">
+        <p><strong>输入：</strong><code>文件内容: "Hello world! Hello Python. Hello everyone."</code></p>
+        <p><strong>输出：</strong><code>hello: 3, world: 1, python: 1, everyone: 1</code></p>
+      </div>
+
+      <h2>提示</h2>
+      <div class="hint-block">
+        <p>使用 open() 读取文件，用 split() 分词，用 collections.Counter 统计频率。注意清理标点符号。</p>
+      </div>
+
+      <h2>参考答案</h2>
+      <div class="answer-block">
+        <pre><code>from collections import Counter
+import string
+
+def word_frequency(filename, top_n=10):
+    """统计文本文件中每个单词的频率"""
+    with open(filename, 'r', encoding='utf-8') as f:
+        text = f.read()
+    
+    # 转小写，移除标点
+    text = text.lower()
+    # 替换标点为空格
+    for char in string.punctuation:
+        text = text.replace(char, ' ')
+    
+    # 分词并统计
+    words = text.split()
+    counter = Counter(words)
+    
+    return counter.most_common(top_n)
+
+# 示例：创建测试文件
+with open('test.txt', 'w') as f:
+    f.write("Hello world! Hello Python. Hello everyone. Python is great!")
+
+# 测试
+result = word_frequency('test.txt')
+for word, count in result:
+    print(f"{word}: {count}")
+# hello: 3, python: 2, world: 1, everyone: 1, is: 1, great: 1</code></pre>
+      </div>
+
+      <div class="exercise-nav">
+        <a href="/exercises/q7.html">&larr; 上一题</a>
+        <a href="/exercises/q9.html">下一题 &rarr;</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Python 训练项目中心 · Copyright &copy; 2026</p>
+  </footer>
+</body>
+</html>

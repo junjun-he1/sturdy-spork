@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 2 题 · 回文字符串 - Python 训练项目中心</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="nav-brand">Python 训练项目中心</a>
+      <ul class="nav-links">
+        <li><a href="/">首页</a></li>
+        <li><a href="/projects/">项目</a></li>
+        <li><a href="/exercises/" class="active">练习题</a></li>
+        <li><a href="/about.html">关于</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>第 2 题 · 回文字符串</h1>
+    </div>
+
+    <div class="content">
+      <div class="exercise-meta">
+        <span class="exercise-number">#02</span>
+        <span class="badge badge-easy">简单</span>
+      </div>
+
+      <h2>题目描述</h2>
+      <div class="exercise-desc-block">
+        <p>判断一个字符串是否为回文。回文是指正读和反读都相同的字符串。忽略大小写和非字母字符。</p>
+      </div>
+
+      <h2>示例</h2>
+      <div class="example-block">
+        <p><strong>输入：</strong><code>s = "A man, a plan, a canal: Panama"</code></p>
+        <p><strong>输出：</strong><code>True（清理后为 "amanaplanacanalpanama"，是回文）</code></p>
+      </div>
+
+      <h2>提示</h2>
+      <div class="hint-block">
+        <p>Python 的字符串切片 s[::-1] 可以快速反转字符串，只需比较原串和反转串即可。</p>
+      </div>
+
+      <h2>参考答案</h2>
+      <div class="answer-block">
+        <pre><code>def is_palindrome(s):
+    """判断字符串是否为回文"""
+    # 清理字符串：只保留字母，转为小写
+    cleaned = ''.join(c.lower() for c in s if c.isalpha())
+    return cleaned == cleaned[::-1]
+
+# 测试
+print(is_palindrome("racecar"))                          # True
+print(is_palindrome("A man, a plan, a canal: Panama"))   # True
+print(is_palindrome("hello"))                            # False</code></pre>
+      </div>
+
+      <div class="exercise-nav">
+        <a href="/exercises/q1.html">&larr; 上一题</a>
+        <a href="/exercises/q3.html">下一题 &rarr;</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Python 训练项目中心 · Copyright &copy; 2026</p>
+  </footer>
+</body>
+</html>

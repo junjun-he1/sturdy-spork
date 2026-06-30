@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 4 题 · 冒泡排序 - Python 训练项目中心</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="nav-brand">Python 训练项目中心</a>
+      <ul class="nav-links">
+        <li><a href="/">首页</a></li>
+        <li><a href="/projects/">项目</a></li>
+        <li><a href="/exercises/" class="active">练习题</a></li>
+        <li><a href="/about.html">关于</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>第 4 题 · 冒泡排序</h1>
+    </div>
+
+    <div class="content">
+      <div class="exercise-meta">
+        <span class="exercise-number">#04</span>
+        <span class="badge badge-easy">简单</span>
+      </div>
+
+      <h2>题目描述</h2>
+      <div class="exercise-desc-block">
+        <p>实现冒泡排序算法，将一个列表按升序排列。冒泡排序通过重复遍历列表，比较相邻元素并交换顺序不对的元素对。</p>
+      </div>
+
+      <h2>示例</h2>
+      <div class="example-block">
+        <p><strong>输入：</strong><code>arr = [64, 34, 25, 12, 22, 11, 90]</code></p>
+        <p><strong>输出：</strong><code>[11, 12, 22, 25, 34, 64, 90]</code></p>
+      </div>
+
+      <h2>提示</h2>
+      <div class="hint-block">
+        <p>使用双重循环，外层循环控制趟数，内层循环比较相邻元素。每趟将最大值"冒泡"到最后。</p>
+      </div>
+
+      <h2>参考答案</h2>
+      <div class="answer-block">
+        <pre><code>def bubble_sort(arr):
+    """冒泡排序"""
+    n = len(arr)
+    for i in range(n):
+        swapped = False
+        # 每次将最大元素冒泡到末尾
+        for j in range(0, n - i - 1):
+            if arr[j] &gt; arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        # 如果没有交换，说明已排好序
+        if not swapped:
+            break
+    return arr
+
+# 测试
+print(bubble_sort([64, 34, 25, 12, 22, 11, 90]))
+# [11, 12, 22, 25, 34, 64, 90]</code></pre>
+      </div>
+
+      <div class="exercise-nav">
+        <a href="/exercises/q3.html">&larr; 上一题</a>
+        <a href="/exercises/q5.html">下一题 &rarr;</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Python 训练项目中心 · Copyright &copy; 2026</p>
+  </footer>
+</body>
+</html>

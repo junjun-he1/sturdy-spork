@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 6 题 · 矩阵转置 - Python 训练项目中心</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="nav-brand">Python 训练项目中心</a>
+      <ul class="nav-links">
+        <li><a href="/">首页</a></li>
+        <li><a href="/projects/">项目</a></li>
+        <li><a href="/exercises/" class="active">练习题</a></li>
+        <li><a href="/about.html">关于</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>第 6 题 · 矩阵转置</h1>
+    </div>
+
+    <div class="content">
+      <div class="exercise-meta">
+        <span class="exercise-number">#06</span>
+        <span class="badge badge-medium">中等</span>
+      </div>
+
+      <h2>题目描述</h2>
+      <div class="exercise-desc-block">
+        <p>将一个二维矩阵（列表的列表）进行转置，即行变列、列变行。例如 2x3 的矩阵转置后变为 3x2。</p>
+      </div>
+
+      <h2>示例</h2>
+      <div class="example-block">
+        <p><strong>输入：</strong><code>matrix = [[1, 2, 3], [4, 5, 6]]</code></p>
+        <p><strong>输出：</strong><code>[[1, 4], [2, 5], [3, 6]]</code></p>
+      </div>
+
+      <h2>提示</h2>
+      <div class="hint-block">
+        <p>使用 zip(*matrix) 可以优雅地实现矩阵转置，zip 会将每个子列表的相同索引位置的元素组合成元组。</p>
+      </div>
+
+      <h2>参考答案</h2>
+      <div class="answer-block">
+        <pre><code>def transpose(matrix):
+    """矩阵转置"""
+    # zip(*matrix) 将每行的对应列元素打包
+    return [list(row) for row in zip(*matrix)]
+
+# 测试
+matrix = [[1, 2, 3], [4, 5, 6]]
+result = transpose(matrix)
+print(result)  # [[1, 4], [2, 5], [3, 6]]
+
+# 不规则矩阵也可以处理
+matrix2 = [[1, 2], [3, 4], [5, 6]]
+print(transpose(matrix2))  # [[1, 3, 5], [2, 4, 6]]</code></pre>
+      </div>
+
+      <div class="exercise-nav">
+        <a href="/exercises/q5.html">&larr; 上一题</a>
+        <a href="/exercises/q7.html">下一题 &rarr;</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Python 训练项目中心 · Copyright &copy; 2026</p>
+  </footer>
+</body>
+</html>

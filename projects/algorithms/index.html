@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>算法练习项目 - Python 训练项目中心</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="nav-brand">Python 训练项目中心</a>
+      <ul class="nav-links">
+        <li><a href="/">首页</a></li>
+        <li><a href="/projects/" class="active">项目</a></li>
+        <li><a href="/exercises/">练习题</a></li>
+        <li><a href="/about.html">关于</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>算法练习项目</h1>
+      <p>排序、搜索、分治法等经典算法的 Python 实现</p>
+    </div>
+
+    <div class="content">
+      <h2>1. 冒泡排序</h2>
+      <p><strong>目标</strong>：排序算法入门，理解基本排序原理</p>
+      <pre><code>def bubble_sort(arr):
+    """冒泡排序 - 逐一比较相邻元素"""
+    n = len(arr)
+    for i in range(n):
+        swapped = False
+        for j in range(0, n - i - 1):
+            if arr[j] &gt; arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        if not swapped:
+            break
+    return arr
+
+# 测试
+print(bubble_sort([64, 34, 25, 12, 22, 11, 90]))
+# 输出: [11, 12, 22, 25, 34, 64, 90]</code></pre>
+      <p><strong>知识点</strong>：双重循环、相邻比较、优化提前终止</p>
+
+      <hr>
+
+      <h2>2. 二分查找</h2>
+      <p><strong>目标</strong>：掌握高效搜索算法，时间复杂度 O(log n)</p>
+      <pre><code>def binary_search(arr, target):
+    """二分查找 - 高效搜索有序列表"""
+    left, right = 0, len(arr) - 1
+    
+    while left &lt;= right:
+        mid = (left + right) // 2
+        
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] &lt; target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    return -1
+
+# 测试
+arr = [1, 3, 5, 7, 9, 11, 13]
+print(binary_search(arr, 7))   # 输出: 3
+print(binary_search(arr, 4))   # 输出: -1</code></pre>
+      <p><strong>知识点</strong>：左右指针、区间缩小、对数时间复杂度</p>
+
+      <hr>
+
+      <h2>3. 快速排序</h2>
+      <p><strong>目标</strong>：分治法经典应用，平均 O(n log n) 排序</p>
+      <pre><code>def quick_sort(arr):
+    """快速排序 - 分治法经典"""
+    if len(arr) &lt;= 1:
+        return arr
+    
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x &lt; pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x &gt; pivot]
+    
+    return quick_sort(left) + middle + quick_sort(right)
+
+# 测试
+print(quick_sort([3, 6, 8, 10, 1, 2, 1]))
+# 输出: [1, 1, 2, 3, 6, 8, 10]</code></pre>
+      <p><strong>知识点</strong>：分治思想、基准点选择、递归实现</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Python 训练项目中心 · Copyright &copy; 2026</p>
+  </footer>
+</body>
+</html>
